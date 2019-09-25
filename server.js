@@ -1,10 +1,17 @@
 const express = require('express');
+const cors = require('cors')
+const products = require('./routes/produits');
+
 const app = express();
-var products = require('./routes/produits');
+const corsOptions = {
+  origin: true,
+}
+
+app.use(cors(corsOptions));
 app.use('/products', products);
 
 app.get('/', function (req, res) {
-  res.send('Hello World!')
+  res.send({ status: 'OK' })
 });
 
 app.listen(3000, function () {
