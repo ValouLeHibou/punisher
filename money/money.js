@@ -5,7 +5,7 @@ let drinkNumber = 5 // Waiting for de user input from the frontend
 class Machine {
     constructor(drinkName, drinkPrice, insertedMoney) {
         if (machineRefund ===  true) {
-            this.tenCentQuantity = 30;
+            this.tenCentQuantity = 30; // not used yet
             this.twentyCentQuantity = 30;
             this.fiftyCentQuantity = 30;
             this.oneEuroQuantity = 30;
@@ -17,6 +17,7 @@ class Machine {
         }
     }
 
+    // check de refund
     checkMoney() {
         if (this.insertedMoney > this.drinkPrice) {
             let refundMoney = this.insertedMoney - this.drinkPrice;
@@ -64,6 +65,7 @@ class Machine {
 class Drink {
     constructor(drinkId) {
         this.drinkId = drinkId;
+        // Array of products
         this.drinkInfo = [
             {"id":0, "name":"eau chaude", "price":0.5},
             {"id":1, "name":"ristretto", "price":0.9},
@@ -99,6 +101,8 @@ class Drink {
     }
 }
 
+// START !!!!!
+
 console.log("\nHi ! Welcome to CoffeeLand !\n\n")
 
 console.log("Choose your drink by typing one of the numbers below :\n");
@@ -106,7 +110,7 @@ console.log("Choose your drink by typing one of the numbers below :\n");
 const drinkInfo = new Drink(null);
 const drinkArray = drinkInfo.catchDrinkInfo();
 drinkArray.forEach((item) => {
-    console.log("N° " + item["id"] + " - " + item["name"] + " => " + item["price"] + "€");
+    console.log("N° " + item["id"] + " - " + item["name"] + " => " + item["price"] + "€"); // Print all products for user
 })
 
 if (drinkNumber >= 0 && drinkNumber <= 15) {
@@ -118,7 +122,7 @@ if (drinkNumber >= 0 && drinkNumber <= 15) {
 
     var standard_input = process.stdin;
     standard_input.setEncoding('utf-8');
-    standard_input.on('data', function (data) {
+    standard_input.on('data', function (data) { // Wainting for Euro inputs
         if(data === 'exit\n'){
             process.exit();
         }else
