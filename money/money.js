@@ -1,6 +1,6 @@
 let machineRefund = true;
 let insertedMoney = 0;
-let drinkNumber = 5
+let drinkNumber = 5 // Waiting for de user input from the frontend
 
 class Machine {
     constructor(drinkName, drinkPrice, insertedMoney) {
