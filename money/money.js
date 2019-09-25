@@ -1,28 +1,63 @@
-const selectedDrinkId = 5;
+let machineRefund = true;
+let insertedMoney = 0;
+let drinkNumber = 5
 
 class Machine {
-    constructor(tenFund, twentyFund, fiftyFund, oneFund, twoFund, selectedDrink, insertedMoney) {
-        this.tenFund = tenFund;
-        this.twentyFund = twentyFund;
-        this.fiftyFund = fiftyFund;
-        this.oneFund = oneFund;
-        this.twoFund = twoFund;
-        this.insertedMoney = insertedMoney;
-        this.selectedDrink = selectedDrink;
-    }
-
-    cashFund() {
-        const total = this.tenFund + this.twentyFund + this.fiftyFund + this.oneFund + this.twoFund;
-        return total;
+    constructor(drinkName, drinkPrice, insertedMoney) {
+        if (machineRefund ===  true) {
+            this.tenCentQuantity = 30;
+            this.twentyCentQuantity = 30;
+            this.fiftyCentQuantity = 30;
+            this.oneEuroQuantity = 30;
+            this.twoEuroQuantity = 30;
+            this.drinkName = drinkName;
+            this.drinkPrice = drinkPrice;
+            this.insertedMoney = insertedMoney;
+            machineRefund = false;
+        }
     }
 
     checkMoney() {
-
-    }
-
-    display() {
-        return `Cette pièce représente ${this.value} euro.
-                Le cashfund est de ${this.quantity} pour cette pièce`;
+        if (this.insertedMoney > this.drinkPrice) {
+            let refundMoney = this.insertedMoney - this.drinkPrice;
+            console.log(Math.round((refundMoney)*10)/10 + "€ à rembourser")
+            if (refundMoney >= 2) {
+                while (refundMoney >= 2) {
+                    refundMoney = Math.round((refundMoney - 2)*10)/10;
+                    console.log("Pièce de 2 rendue, reste à rembourser : " + refundMoney);
+                }
+            }
+            if (refundMoney >= 1) {
+                while (refundMoney >= 1) {
+                    refundMoney = Math.round((refundMoney - 1)*10)/10;
+                    console.log("Pièce de 1 rendue, reste à rembourser : " + refundMoney);
+                }
+            }
+            if (refundMoney >= 0.5) {
+                while (refundMoney >= 0.5) {
+                    refundMoney = Math.round((refundMoney - 0.5)*10)/10;
+                    console.log("Pièce de 0.5 rendue, reste à rembourser : " + refundMoney);
+                }
+            }
+            if (refundMoney >= 0.2) {
+                while (refundMoney >= 0.2) {
+                    refundMoney = Math.round((refundMoney - 0.2)*10)/10;
+                    console.log("Pièce de 0.2 rendue, reste à rembourser : " + refundMoney);
+                }
+            }
+            if (refundMoney >= 0.1) {
+                while (refundMoney >= 0.1) {
+                    refundMoney = Math.round((refundMoney - 0.1)*10)/10;
+                    console.log("Pièce de 0.1 rendue, reste à rembourser : " + refundMoney);
+                }
+            }
+            console.log("Remboursement effectué");
+            return "OK";
+        }
+        else if (insertedMoney === this.drinkPrice)
+            return "OK"
+        else
+            return "Not anought money"
     }
 }
 
@@ -30,14 +65,14 @@ class Drink {
     constructor(drinkId) {
         this.drinkId = drinkId;
         this.drinkInfo = [
-            {"id":0, "name":"eau chaude", "price":0.50},
-            {"id":1, "name":"ristretto", "price":0.90},
+            {"id":0, "name":"eau chaude", "price":0.5},
+            {"id":1, "name":"ristretto", "price":0.9},
             {"id":2, "name":"expresso", "price":1},
-            {"id":3, "name":"allongé", "price":1.20},
-            {"id":4, "name":"allongé décaféiné", "price":1.20},
-            {"id":5, "name":"cappuccino", "price":1.90},
-            {"id":6, "name":"macchiato", "price":1.50},
-            {"id":7, "name":"café au lait", "price":1.50},
+            {"id":3, "name":"allongé", "price":1.2},
+            {"id":4, "name":"allongé décaféiné", "price":1.2},
+            {"id":5, "name":"cappuccino", "price":1.9},
+            {"id":6, "name":"macchiato", "price":1.5},
+            {"id":7, "name":"café au lait", "price":1.5},
             {"id":8, "name":"thé", "price":1},
             {"id":9, "name":"thé citron", "price":1},
             {"id":10, "name":"thé vert", "price":1},
@@ -47,6 +82,10 @@ class Drink {
             {"id":14, "name":"choucroute", "price":3},
             {"id":15, "name":"kebab", "price":5},
         ]
+    }
+
+    catchDrinkInfo() {
+        return this.drinkInfo
     }
 
     findDrinkName() {
@@ -60,51 +99,38 @@ class Drink {
     }
 }
 
-class Money {
-    constructor(value, quantity) {
-        this.value = value;
-        this.quantity = quantity;
-    }
+console.log("\nHi ! Welcome to CoffeeLand !\n\n")
 
-    value() {
-        return this.value()
-    }
+console.log("Choose your drink by typing one of the numbers below :\n");
 
-    quantity() {
-        return this.quantity()
-    }
+const drinkInfo = new Drink(null);
+const drinkArray = drinkInfo.catchDrinkInfo();
+drinkArray.forEach((item) => {
+    console.log("N° " + item["id"] + " - " + item["name"] + " => " + item["price"] + "€");
+})
 
-    total(value, quantity) {
-        const total = value*quantity;
-        return total;
-    }
+if (drinkNumber >= 0 && drinkNumber <= 15) {
+    const drinkInfo = new Drink(parseInt(drinkNumber, 10));
+    const drinkName = drinkInfo.findDrinkName();
+    const drinkPrice = drinkInfo.findDrinkPrice();
+    console.log("You choose " + drinkName + "\n");
+    console.log("Please insert money, you need " + drinkPrice + "€\n");
+
+    var standard_input = process.stdin;
+    standard_input.setEncoding('utf-8');
+    standard_input.on('data', function (data) {
+        if(data === 'exit\n'){
+            process.exit();
+        }else
+        {
+            insertedMoney = insertedMoney + parseInt(data, 10);
+            console.log('Total inserted : ' + insertedMoney);
+            if (insertedMoney >= drinkPrice) {
+                const refund = new Machine(drinkName, drinkPrice, insertedMoney);
+                const oneRefund = refund.checkMoney();
+                console.log(oneRefund);
+                insertedMoney = 0;
+            }
+        }
+    })
 }
-
-const tenCent = new Money(0.1, 30);
-const twentyCent = new Money(0.2, 30);
-const fiftyCent = new Money(0.5, 30);
-const oneCent = new Money(1, 30);
-const twoCent = new Money(2, 30);
-
-const tenFund = tenCent.total(tenCent.value, tenCent.quantity);
-const twentyFund = twentyCent.total(twentyCent.value, twentyCent.quantity);
-const fiftyFund = fiftyCent.total(fiftyCent.value, fiftyCent.quantity);
-const oneFund = oneCent.total(oneCent.value, oneCent.quantity);
-const twoFund = twoCent.total(twoCent.value, twoCent.quantity);
-const totalCashFund = new Machine(tenFund, twentyFund, fiftyFund, oneFund, twoFund);
-
-/*
-console.log(tenFund)
-console.log(twentyFund)
-console.log(fiftyFund)
-console.log(oneFund)
-console.log(twoFund)
-*/
-console.log(totalCashFund.cashFund());
-
-const drinkInfo = new Drink(selectedDrinkId);
-
-const drinkName =  drinkInfo.findDrinkName();
-console.log(drinkName);
-const drinkPrice =  drinkInfo.findDrinkPrice();
-console.log(drinkPrice);
