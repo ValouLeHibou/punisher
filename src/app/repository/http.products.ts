@@ -11,4 +11,8 @@ export class HttpProducts {
   fetchList(): any {
     return this.http.get('http://localhost:3000/products');
   }
+
+  fetchProductById(id: number): any {
+    return this.http.get('http://localhost:3000/products/' + id);
+  }
 }
