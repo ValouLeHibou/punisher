@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Product} from '../products-list/product';
-import {HttpProducts} from '../repository/http.products';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Product } from '../products-list/product';
+import { HttpProducts } from '../repository/http.products';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-summary',

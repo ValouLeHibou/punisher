@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-payment',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./payment.component.scss']
 })
 export class PaymentComponent implements OnInit {
+  credit = new FormControl('');
 
-  constructor() { }
+  constructor(private routeService: ActivatedRoute) { }
 
   ngOnInit() {
   }
 
+  moneyManager(productPrice: number, credit: number) {
+
+  }
 }
